@@ -1,4 +1,4 @@
-# nots: an ORM for your shell
+# Nots: an ORM for your shell
 
 ## Getting Started
 
@@ -20,10 +20,10 @@ called a _document_.
 nots create resource --name=todo --plural=todos
 ```
 
-We can verify that nots has created our resource by running `nots list resources`. This will produce the following
+We can verify that `nots` has created our resource by running `nots list resources`. This will produce the following
 output:
 
-```shell
+```
 NAME         PLURALITY    TABLE
 todo         todos        todo
 ```
@@ -40,7 +40,7 @@ nots create field --resource=todo --name=description
 Again we can confirm that our field has been created by running `nots list fields --resource=todo`. The output will look
 something like this:
 
-```shell
+```
 NAME          TYPE         DEFAULT      RESOURCE
 description   text         None         todo
 ```
@@ -58,7 +58,7 @@ nots create field --resource=todo --name=done --type=boolean --default=false
 
 Again we can inspect our resource by running `nots list fields --resource=todo`:
 
-```shell
+```
 NAME          TYPE         DEFAULT      RESOURCE
 description   text         None         todo
 done          boolean      false        todo
@@ -85,7 +85,7 @@ nots list todos
 
 This should give you the following output.
 
-```shell
+```
 ID           DESCRIPTION                                          DONE
 1            Learn more about all the things I can do with nots   False
 2            Buy two cartons of milk                              False
@@ -104,7 +104,7 @@ as `__neq`, `__gt`, `__gte`, `__lt`, and `__lte`. These operators are described 
 
 Now if we list our resources, we'll see:
 
-```shell
+```
 ID           DESCRIPTION                                          DONE
 1            Learn more about all the things I can do with nots   True
 2            Buy two cartons of milk                              False
@@ -113,7 +113,7 @@ ID           DESCRIPTION                                          DONE
 Querying does not only work with updating, it also works with listing. For example if we want to list our tasks that are
 done we can run `nots list todos --done__eq=true`
 
-```shell
+```
 ID           DESCRIPTION                                          DONE
 1            Learn more about all the things I can do with nots   True
 ```
@@ -135,7 +135,7 @@ nots delete todo --id__eq=2
 
 Go ahead and list your todos, you'll see it's now gone:
 
-```shell
+```
 ID           DESCRIPTION                                          DONE
 1            Learn more about all the things I can do with nots   True
 ```
@@ -144,7 +144,7 @@ One last thing, so far you've output the data only to a table. This is easy for 
 to pipe `nots` output to other processes. You can change the output mode to `json` by adding `--output=json` to your
 list operation. For example `nots list todos --output=json` will generate the following output:
 
-```shell
+```json
 [
   {
     "id": 1,
@@ -159,7 +159,7 @@ specifying `--fields`. In our example with `todo` resources we can
 run `nots list todos --output=json --fields=description,done`
 which will output the following:
 
-```shell
+```json
 [
   {
     "description": "Learn more about all the things I can do with nots",
@@ -170,7 +170,7 @@ which will output the following:
 
 This works with all output modes, so by omitting the output mode you'll get the following result:
 
-```shell
+```
 DESCRIPTION                                          DONE
 Learn more about all the things I can do with nots   True
 ```
@@ -240,7 +240,7 @@ You can use defaults in the following manner:
 nots create field --name=myfield --type=datetime --default=NOW
 ```
 
-Make sure you get match the types. Although you can use `NOW` with `--type=text` it pays to use `--type=datetime`.
+Make sure you match the types. Although you can use `NOW` with `--type=text` it pays to use `--type=datetime`.
 
 ## Query Operators
 
@@ -276,7 +276,7 @@ we'll look at it, probably.
 
 ### What does Nots mean?
 
-It's like notes, but then nots. As in, "Hey papi mak me sum nots."
+It's like notes, but then `nots`. As in, "Hey papi mak me sum `nots`."
 
 ### Does Nots support any other backend than Sqlite?
 
