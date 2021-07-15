@@ -5,4 +5,9 @@ source .venv/bin/activate
 
 pip install -r requirements.txt > /tmp/nots-install.txt
 
-ln -s "$(pwd)/bin/nots" "$HOME/.local/bin/nots"
+echo "We're going to symlink './bin/nots' to '/usr/local/nots.'"
+read -p "To do this, we're using sudo. Press enter to continue, or ctrl-c to cancel."
+
+sudo ln -s "$(pwd)/bin/nots" "/usr/local/nots"
+
+echo "Setup is complete. Run 'nots setup system' to get started."
