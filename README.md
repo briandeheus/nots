@@ -177,8 +177,8 @@ Learn more about all the things I can do with nots   True
 
 ### What's next?
 
-Nots does storing and querying data pretty well, but like all databases it needs extra content to be truly convenient.
-It's up to you, as a developer, to make this content!
+Nots does storing and querying data pretty well, but like all databases it needs to be wrapped to be truly convenient.
+It's up to you, as a developer, to make this happen!
 
 For example, I use the following shell function to manage my todo list:
 
