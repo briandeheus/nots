@@ -13,7 +13,7 @@
 Todos are the Hello Worlds of programming projects, so let's get started with a project that allows us to list a bunch
 of items we have to take care off.
 
-Let's begin by creating a new resource. In traditional terms a resource is a _record_. In webscale terms this might be
+Let's begin by creating a new resource. In traditional terms a resource is a _record_ or _row_. In webscale terms this might be
 called a _document_.
 
 ```shell
@@ -29,7 +29,7 @@ todo         todos        todo
 ```
 
 With our resource created we must let `nots` know what kind of fields our resource can expect. A field in traditional
-terms is a column, in modern terms you might call it a "key". When creating a field for a resource you need to at least
+terms is a _column_, in modern terms you might call it a _key_. When creating a field for a resource you need to at least
 specify a name, optionally are the type, and a default value. If you do not specify a default value then the field
 becomes required. if you do not specify a type then the type will become `text`.
 
