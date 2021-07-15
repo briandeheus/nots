@@ -2,6 +2,9 @@
 
 ## Getting Started
 
+There are a lot of dragons here. Although the core functionality works, there are some blatant bugs that can ruin your
+experience. Install at your own risk.
+
 ### Setting up Nots
 
 1. Clone this repository into a directory of your choosing.
@@ -13,8 +16,8 @@
 Todos are the Hello Worlds of programming projects, so let's get started with a project that allows us to list a bunch
 of items we have to take care off.
 
-Let's begin by creating a new resource. In traditional terms a resource is a _record_ or _row_. In webscale terms this might be
-called a _document_.
+Let's begin by creating a new resource. In traditional terms a resource is a _record_ or _row_. In webscale terms this
+might be called a _document_.
 
 ```shell
 nots create resource --name=todo --plural=todos
@@ -29,8 +32,8 @@ todo         todos        todo
 ```
 
 With our resource created we must let `nots` know what kind of fields our resource can expect. A field in traditional
-terms is a _column_, in modern terms you might call it a _key_. When creating a field for a resource you need to at least
-specify a name, optionally are the type, and a default value. If you do not specify a default value then the field
+terms is a _column_, in modern terms you might call it a _key_. When creating a field for a resource you need to at
+least specify a name, optionally are the type, and a default value. If you do not specify a default value then the field
 becomes required. if you do not specify a type then the type will become `text`.
 
 ```shell
