@@ -1,3 +1,5 @@
+from beautifultable import BeautifulTable
+
 import json
 import logging
 
@@ -31,22 +33,12 @@ class Output:
         print(json.dumps(rows, indent=2))
 
     def render_as_table(self):
-        widths = [10 for _ in range(len(self.headers))]
+        table = BeautifulTable()
+        table.set_style(BeautifulTable.STYLE_NONE)
+        table.columns.header = [h.upper() for h in self.headers]
+        table.columns.alignment = BeautifulTable.ALIGN_LEFT
 
         for row in self.rows:
-            for index, val in enumerate(row):
-                str_len = len(str(val))
+            table.rows.append([c for c in row])
 
-                if str_len > widths[index]:
-                    widths[index] = str_len
-        fmt = []
-
-        for width in widths:
-            width = min(width, 60)
-            fmt.append(f"{{:<{width + 3}.{width}}}")
-
-        fmt = "".join(fmt)
-        print(fmt.format(*[h.upper() for h in self.headers]))
-
-        for row in self.rows:
-            print(fmt.format(*[str(v) for v in row]))
+        print(table)
