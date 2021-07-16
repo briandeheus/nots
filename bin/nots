@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-source .venv/bin/activate
-./main.py "$@"
+source /opt/nots/.venv/bin/activate
+/opt/nots/main.py "$@"

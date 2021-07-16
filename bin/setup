@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
-
+set +e
 python3 -m venv .venv
 source .venv/bin/activate
 
 pip install -r requirements.txt > /tmp/nots-install.txt
 
-echo "We're going to symlink './bin/nots' to '/usr/local/nots.'"
+echo "We're going to symlink './bin/nots' to '/usr/local/nots.' and symlink this directory to /opt/nots"
 read -p "To do this, we're using sudo. Press enter to continue, or ctrl-c to cancel."
 
 sudo ln -s "$(pwd)/bin/nots" "/usr/local/nots"
+sudo ln -s "$(pwd)" "/opt/nots"
 
 echo "Setup is complete. Run 'nots setup system' to get started."
