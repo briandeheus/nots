@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 import argparse
-import sys
 import logging
 import inspect
+import sys
 
 from resources import Verb, custom
 from resources.builtin import (
@@ -33,12 +33,12 @@ def build_resources_and_verbs(skip_custom=False):
     return resources
 
 
-def main():
+def run(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument("verb")
     parser.add_argument("resource")
     parser.add_argument("-v", required=False, type=int, default=0)
-    args = parser.parse_known_args(sys.argv[1:])[0]
+    args = parser.parse_known_args(argv[1:])[0]
 
     if args.resource == "system":
         resources_and_verbs = build_resources_and_verbs(skip_custom=True)
@@ -48,7 +48,7 @@ def main():
     resource_list = [r for r in resources_and_verbs]
 
     logging.getLogger().setLevel(level=V_TO_LEVELS[args.v])
-    logging.debug('Executing command "%s"', " ".join(sys.argv[1:]))
+    logging.debug('Executing command "%s"', " ".join(argv[1:]))
 
     if args.resource not in resources_and_verbs:
         logging.error(
@@ -71,10 +71,14 @@ def main():
     verb = verbs[args.verb]
 
     if inspect.isclass(verb) and issubclass(verb, Verb):
-        v = verb(parent_args=parser)
+        v = verb(argv=argv, parent_args=parser)
         v.run()
     else:
         verb()
+
+
+def main():
+    run(argv=sys.argv)
 
 
 if __name__ == "__main__":

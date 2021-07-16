@@ -1,10 +1,10 @@
 import argparse
-import sys
 
 
 class Verb:
-    def __init__(self, parent_args):
+    def __init__(self, argv, parent_args):
         parser = argparse.ArgumentParser(parents=[parent_args], add_help=False)
+        self.argv = argv
         self.argp = parser
         self.unknown_options = None
 
@@ -19,10 +19,10 @@ class Verb:
             name = arg.split("=")[0].split(" ")[0]
             unknown_parser.add_argument(name)
 
-        return unknown_parser.parse_known_args(sys.argv[1:])[0]
+        return unknown_parser.parse_known_args(self.argv[1:])[0]
 
     def run(self):
-        args, unknown_args = self.argp.parse_known_args(sys.argv[1:])
+        args, unknown_args = self.argp.parse_known_args(self.argv[1:])
         self.unknown_options = self.parse_unknowns(unknowns=unknown_args)
 
         self.execute(**vars(args))
@@ -32,6 +32,6 @@ class Verb:
 
 
 class ListVerb(Verb):
-    def __init__(self, parent_args):
-        super().__init__(parent_args=parent_args)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.argp.add_argument(f"--output", required=False, default="table")

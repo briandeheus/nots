@@ -8,7 +8,6 @@ from resources import Verb, ListVerb
 from resources.builtin import resource as builtin_resource, field as builtin_field
 from sqlalchemy import Table, Column, Integer, select
 
-import sys
 import logging
 
 
@@ -86,9 +85,9 @@ class Delete(Verb):
 
 
 class Update(Verb):
-    def __init__(self, parent_args):
-        super().__init__(parent_args=parent_args)
-        args = parent_args.parse_known_args(sys.argv[1:])[0]
+    def __init__(self, argv, parent_args):
+        super().__init__(argv, parent_args=parent_args)
+        args = parent_args.parse_known_args(argv[1:])[0]
 
         self.resource = builtin_resource.get_resource(name=args.resource)
         self.fields = builtin_field.get_fields(resource=self.resource.table_name)
@@ -161,9 +160,9 @@ class List(ListVerb):
 
 
 class Create(Verb):
-    def __init__(self, parent_args):
-        super().__init__(parent_args=parent_args)
-        args = parent_args.parse_known_args(sys.argv[1:])[0]
+    def __init__(self, argv, parent_args):
+        super().__init__(argv=argv, parent_args=parent_args)
+        args = parent_args.parse_known_args(argv[1:])[0]
 
         self.resource = builtin_resource.get_resource(name=args.resource)
         self.fields = builtin_field.get_fields(resource=self.resource.table_name)
