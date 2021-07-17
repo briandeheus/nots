@@ -234,7 +234,6 @@ Because `nots` is using Sqlite as a backend, types are few:
 
 You can specify special default values, `nots` currently supports the following special defaults:
 
-* `NOW` -- inserts the current time.
 * `UUID` -- inserts a uuid v4.
 
 You can use defaults in the following manner:

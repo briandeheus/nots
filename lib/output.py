@@ -30,15 +30,15 @@ class Output:
         rows = []
         for row in self.rows:
             rows.append({key: row[key] for key in row.keys()})
-        print(json.dumps(rows, indent=2))
+        print(json.dumps(rows))
 
     def render_as_table(self):
         table = BeautifulTable()
         table.set_style(BeautifulTable.STYLE_NONE)
-        table.columns.header = [h.upper() for h in self.headers]
+        table.columns.header = [h.upper().replace("_", "") for h in self.headers]
         table.columns.alignment = BeautifulTable.ALIGN_LEFT
 
         for row in self.rows:
-            table.rows.append([c for c in row])
+            table.rows.append([str(c) for c in row])
 
         print(table)

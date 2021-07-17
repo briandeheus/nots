@@ -3,6 +3,7 @@ from lib.types import TYPES, CASTING_TABLE
 from lib.defaults import DEFAULTS
 from lib.operators import OPERATORS
 from lib.output import Output
+from lib.funcs import FUNCTIONS, FUNCTIONS_LIST
 from lib import editor
 from resources import Verb, ListVerb
 from resources.builtin import resource as builtin_resource, field as builtin_field
@@ -46,8 +47,26 @@ def get_value(options, field):
     return value
 
 
+def build_execution_chain(query, table, options):
+    for option in vars(options):
+
+        if "__" not in option:
+            logging.debug("Discarding %s for execution chain", option)
+
+        column, op = option.split("__")
+
+        if op not in FUNCTIONS_LIST:
+            continue
+
+        query = FUNCTIONS[op](
+            query=query, value=getattr(options, option), columns=table.columns
+        )
+
+    return query
+
+
 def build_query(table, options):
-    columns = [c.name for c in table.columns]
+    all_columns = [c.name for c in table.columns]
     query = []
 
     for option in vars(options):
@@ -58,12 +77,12 @@ def build_query(table, options):
         column, op = option.split("__")
 
         if op not in OPERATORS:
-            logging.error("Unknown operator %s", op)
-            exit(1)
+            continue
 
-        if column not in columns:
+        if column not in all_columns:
             logging.error("Unknown field %s", column)
             exit(1)
+
         query.append(OPERATORS[op](getattr(table.c, column), getattr(options, option)))
 
     return query
@@ -97,14 +116,10 @@ class Update(Verb):
             self.field_map[field.name] = field
             self.add_argument(name=field.name, required=False)
 
-    def build_query(self, table):
-        return build_query(table, self.unknown_options)
-
     def execute(self, **options):
         values = {}
 
         table_def = create_table_def(name=self.resource.table_name)
-        query = self.build_query(table=table_def)
 
         for field in self.fields:
 
@@ -117,6 +132,7 @@ class Update(Verb):
             value = get_value(options, field)
             values[field.name] = CASTING_TABLE[field.type].cast_to(value)
 
+        query = build_query(table=table_def, options=self.unknown_options)
         logging.debug(
             "Updating resource %s with values: %s", self.resource.table_name, values
         )
@@ -140,7 +156,6 @@ class List(ListVerb):
 
         resource = builtin_resource.get_resource(name=options["resource"])
         table_def = create_table_def(name=resource.table_name)
-        query = self.build_query(table=table_def)
         columns = []
 
         if fields:
@@ -151,9 +166,17 @@ class List(ListVerb):
             fields = [c.name for c in table_def.columns]
             columns = [c for c in table_def.columns]
 
+        query = build_query(table=table_def, options=self.unknown_options)
+
+        chain = build_execution_chain(
+            query=select(*columns).where(*query),
+            table=table_def,
+            options=self.unknown_options,
+        )
+
         output = Output(headers=fields)
 
-        for row in connection.engine.execute(select(*columns).where(*query)).all():
+        for row in connection.engine.execute(chain).all():
             output.add_row(row)
 
         output.render(mode=options["output"])
