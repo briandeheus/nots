@@ -1,6 +1,8 @@
 # Nots: an ORM for your shell
 
-![carbon(3)](https://user-images.githubusercontent.com/995280/126035522-c347ff01-d04a-40f5-a476-48d44929ad19.png)
+<p align="center">
+![NOTS in action](https://user-images.githubusercontent.com/995280/126035578-b532e3fa-9ed3-459c-93f8-f5e81304f80c.png)
+</p>
 
 ## Getting Started
 
