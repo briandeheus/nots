@@ -6,8 +6,10 @@
 
 ## Getting Started
 
-There are a lot of dragons here. Although the core functionality works, there are some blatant bugs that can ruin your
-experience. Install at your own risk.
+Nots is a work in progress. If you find any bugs do not hesitate to open a new issue. Fixed a bug? Send a pull request.
+New features are great, but please open a discussion first.
+
+Curious to see other recipes? Check out the [Wiki!](https://github.com/briandeheus/nots/wiki).
 
 ### Setting up Nots
 
@@ -194,24 +196,38 @@ For example, I use the following shell function to manage my todo list:
 
 todo() {
 
-  if [ "$1" = "list" ]; then
-    nots list todos
-  fi
+  if [[ "$1" = "list" ]]; then
 
-  if [ "$1" = "list-done" ]; then
-    nots list todos --done__eq=true
-  fi
+    if [[ "$2" = "done" ]]; then
 
-  if [ "$1" = "list-todo" ]; then
-    nots list todos --done__eq=false
-  fi
+      nots list todos --done__eq=true --fields=id,description
 
-  if [ "$1" = "mark-done" ]; then
-    nots update todos --done=true --id__eq="$2"
-  fi
+    elif [[ "$2" = "todo" ]]; then
 
-  if [ "$1" = "add" ]; then
+      nots list todos --done__eq=false --fields=id,description
+
+    else
+
+      nots list todos --fields=id,description
+
+    fi
+
+  elif [[ "$1" = "mark" ]]; then
+
+    if [[ "$2" = "done" ]]; then
+
+      nots update todos --done=true --id__eq="$3"
+
+    elif [[ "$2" = "todo" ]]; then
+
+      nots update todos --done=false --id__eq="$3"
+
+    fi
+
+  elif [[ "$1" = "add" ]]; then
+
     nots create todo --description="$2"
+
   fi
 
 }
