@@ -1,7 +1,7 @@
 # Nots: an ORM for your shell
 
 <p align="center">
-![NOTS in action](https://user-images.githubusercontent.com/995280/126035578-b532e3fa-9ed3-459c-93f8-f5e81304f80c.png)
+    <img src="https://user-images.githubusercontent.com/995280/126035578-b532e3fa-9ed3-459c-93f8-f5e81304f80c.png">
 </p>
 
 ## Getting Started
