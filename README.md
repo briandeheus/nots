@@ -6,10 +6,7 @@
 
 ## Getting Started
 
-Nots is a work in progress. If you find any bugs do not hesitate to open a new issue. Fixed a bug? Send a pull request.
-New features are great, but please open a discussion first.
-
-Curious to see other recipes? Check out the [Wiki!](https://github.com/briandeheus/nots/wiki).
+Already setup and started? Check out the [Wiki!](https://github.com/briandeheus/nots/wiki) for more recipes.
 
 ### Setting up Nots
 
@@ -278,6 +275,11 @@ Make sure you match the types. Although you can use `NOW` with `--type=text` it 
 * Foreign Keys
 * Support for databases other than SQLite
 * `__in` operators.
+
+# Contributing
+
+Nots is a work in progress. If you find any bugs do not hesitate to open a new issue. Fixed a bug? Send a pull request.
+New features are great, but please open a discussion first.
 
 ## How does it work?
 
