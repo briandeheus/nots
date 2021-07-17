@@ -1,5 +1,7 @@
 # Nots: an ORM for your shell
 
+![carbon(3)](https://user-images.githubusercontent.com/995280/126035522-c347ff01-d04a-40f5-a476-48d44929ad19.png)
+
 ## Getting Started
 
 There are a lot of dragons here. Although the core functionality works, there are some blatant bugs that can ruin your
